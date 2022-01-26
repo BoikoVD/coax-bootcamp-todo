@@ -1,39 +1,26 @@
 import React from 'react';
-import Button from '../Button/Button';
-import Input from '../Input/Input';
 import cl from './AddTaskForm.module.scss';
-import { v4 as uuidv4 } from 'uuid';
+import Form from './Form/Form';
 
 class AddTaskForm extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			value: '',
-		}
+	state = {
+		error: null,
+	};
+
+	componentDidCatch(error) {
+		console.log(`ERROR: ${error.message}`)
+		this.setState({ error: error })
 	}
 
-	createTask(e) {
-		e.preventDefault();
-		let newTask = {
-			id: uuidv4(),
-			text: this.state.value,
-			status: 'empty'
-		}
-		this.props.addTask(newTask);
-		this.setState({ value: '' });
-	}
-
-	changeValue(e) {
-		this.setState({ value: e.target.value });
+	removeError = () => {
+		this.setState({ error: null })
 	}
 
 	render() {
-		return (
-			<form className={cl.form} onSubmit={this.createTask.bind(this)}>
-				<Input className={cl.input} placeholder='Write your task here' value={this.state.value} onChange={this.changeValue.bind(this)} />
-				<Button className={cl.btn} type='Submit'>Add</Button>
-			</form>
-		);
+		return <>
+			{this.state.error ? <div className={cl.warn}>You did not enter the task name</div> : null}
+			<Form removeError={this.removeError} {...this.props} />
+		</>;
 	}
 }
 

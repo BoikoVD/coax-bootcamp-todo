@@ -3,16 +3,15 @@ import cl from './Button.module.scss';
 import cn from 'classnames';
 
 class Button extends React.Component {
-	constructor(props) {
-		super(props);
-	}
 
 	render() {
-		let classes = cn(cl.btn, this.props.className);
+		const { className, children, ...props } = this.props;
+
+		const classes = cn(cl.btn, className);
 
 		return (
-			<button className={classes} type={this.props.type}>
-				{this.props.children}
+			<button className={classes} {...props}>
+				{children}
 			</button>
 		);
 	}

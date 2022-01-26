@@ -5,8 +5,14 @@ import ListHeader from './components/ListHeader/ListHeader';
 import Task from './components/Task/Task';
 
 class App extends React.Component {
-	state = {
-		tasks: []
+	constructor(props) {
+		super(props);
+		const tasks = JSON.parse(localStorage.getItem('tasks'));
+		if (tasks) {
+			this.state = { tasks };
+		} else {
+			this.state = { tasks: [] }
+		}
 	}
 
 	addTask = (task) => {
@@ -31,13 +37,13 @@ class App extends React.Component {
 		});
 	}
 
-	componentDidMount() {
-		const tasks = JSON.parse(localStorage.getItem('tasks'));
-		if (tasks) {
-			this.setState({ tasks });
+	componentDidUpdate(prevProps, prevState) {
+		if (this.state.tasks.length > prevState.tasks.length) {
+			const addedTask = this.state.tasks.find(newStateEl => {
+				return prevState.tasks.findIndex(oldStateEl => JSON.stringify(oldStateEl) === JSON.stringify(newStateEl)) === -1
+			});
+			console.log(`Task "${addedTask.text}" added`);
 		}
-	}
-	componentDidUpdate() {
 		localStorage.setItem('tasks', JSON.stringify(this.state.tasks));
 	}
 

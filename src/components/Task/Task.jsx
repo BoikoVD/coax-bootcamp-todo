@@ -6,8 +6,9 @@ import SkippedIcon from '../../assets/icons/skipped.svg';
 import TrashIcon from '../../assets/icons/trash.svg';
 
 class Task extends React.Component {
-	constructor(props) {
-		super(props);
+
+	componentWillUnmount() {
+		console.log(`Task "${this.props.task.text}" deleted`);
 	}
 
 	render() {
