@@ -2,19 +2,17 @@ import React from 'react';
 import cl from './Button.module.scss';
 import cn from 'classnames';
 
-class Button extends React.Component {
+const Button = (props) => {
 
-	render() {
-		const { className, children, ...props } = this.props;
+	const { className, children, ...otherProps } = props;
 
-		const classes = cn(cl.btn, className);
+	const classes = cn(cl.btn, className);
 
-		return (
-			<button className={classes} {...props}>
-				{children}
-			</button>
-		);
-	}
+	return (
+		<button className={classes} {...otherProps}>
+			{children}
+		</button>
+	);
 }
 
 export default Button;

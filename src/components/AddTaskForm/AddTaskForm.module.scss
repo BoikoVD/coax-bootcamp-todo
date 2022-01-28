@@ -1,8 +1,20 @@
+.form {
+	padding: 0px 16px 16px 16px;
+	display: flex;
+	position: relative;
+}
 .warn {
 	position: absolute;
-	top: 20px;
+	top: 0;
 	left: 0;
+	transform: translate(0, -150%);
 	width: 100%;
 	text-align: center;
 	color: red;
+}
+.input {
+	flex: 1 1 auto;
+}
+.btn {
+	margin-left: 16px;
 }

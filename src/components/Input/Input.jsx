@@ -2,17 +2,15 @@ import React from 'react';
 import cl from './Input.module.scss';
 import cn from 'classnames';
 
-class Input extends React.Component {
+const Input = (props) => {
 
-	render() {
-		const { className, ...props } = this.props;
+	const { className, ...otherProps } = props;
 
-		const classes = cn(cl.input, className);
+	const classes = cn(cl.input, className);
 
-		return (
-			<input type="text" className={classes} {...props} />
-		);
-	}
+	return (
+		<input type="text" className={classes} {...otherProps} />
+	);
 }
 
 export default Input;
