@@ -1,5 +1,6 @@
 import React from 'react';
-import { setTasksAC, useTasks } from '../../context/TaskContext';
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../redux/actions/actions'
 import CheckboxIcon from '../../assets/icons/empty.svg';
 import CheckedIcon from '../../assets/icons/checked.svg';
 import SkippedIcon from '../../assets/icons/skipped.svg';
@@ -7,15 +8,16 @@ import TrashIcon from '../../assets/icons/trash.svg';
 import cl from './Task.module.scss';
 
 const Task = ({ task }) => {
-	let { tasks, tasksDispatch } = useTasks();
+	const dispatch = useDispatch();
+	const tasks = useSelector(state => state.tasksReducer.tasks);
 
 	const deleteTask = (id) => {
-		const newTasks = tasks.tasks.filter(task => task.id !== id);
-		tasksDispatch(setTasksAC(newTasks));
-		localStorage.setItem('tasks', JSON.stringify(newTasks));
+		const newTasks = tasks.filter(task => task.id !== id);
+		dispatch(actions.setTasksAC(newTasks));
 	};
+
 	const checkboxHandler = (id) => {
-		const newTasks = tasks.tasks.map(task => {
+		const newTasks = tasks.map(task => {
 			if (task.id === id) {
 				task.status === 'done'
 					?
@@ -29,8 +31,7 @@ const Task = ({ task }) => {
 			}
 			return task;
 		})
-		tasksDispatch(setTasksAC(newTasks));
-		localStorage.setItem('tasks', JSON.stringify(newTasks));
+		dispatch(actions.setTasksAC(newTasks));
 	};
 
 	React.useEffect(() => {

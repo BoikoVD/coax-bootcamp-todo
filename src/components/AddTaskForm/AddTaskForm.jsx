@@ -1,14 +1,18 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../redux/actions/actions';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
-import { setTasksAC, useTasks } from '../../context/TaskContext';
 import cl from './AddTaskForm.module.scss';
 
 const AddTaskForm = () => {
-	let [value, setValue] = React.useState('');
-	let [hasError, setHasError] = React.useState(false);
-	let { tasks, tasksDispatch } = useTasks();
+	const [value, setValue] = React.useState('');
+	const [hasError, setHasError] = React.useState(false);
+
+	const tasks = useSelector(state => state.tasksReducer.tasks);
+	const isLoading = useSelector(state => state.loadingReducer.isLoading);
+	const dispatch = useDispatch();
 
 	const createTask = (e) => {
 		e.preventDefault();
@@ -23,12 +27,9 @@ const AddTaskForm = () => {
 			status: 'empty'
 		}
 
-		const newTasks = [...tasks.tasks, newTask]
-		tasksDispatch(setTasksAC(newTasks));
-		localStorage.setItem('tasks', JSON.stringify(newTasks));
+		const newTasks = [...tasks, newTask]
+		dispatch(actions.setTasksAsyncAC(newTasks, value));
 		setValue('');
-
-		console.log(`Task "${value}" added`);
 	}
 
 	const changeValue = (e) => {
@@ -47,7 +48,7 @@ const AddTaskForm = () => {
 				value={value}
 				onChange={changeValue}
 			/>
-			<Button className={cl.btn} type='Submit'>Add</Button>
+			<Button className={cl.btn} type='Submit' disabled={isLoading}>{isLoading ? '...' : 'Add'}</Button>
 		</form>
 	</>;
 }

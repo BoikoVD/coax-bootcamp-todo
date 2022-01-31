@@ -1,13 +1,13 @@
 import React from 'react';
 import Task from '../Task/Task';
-import { useTasks } from '../../context/TaskContext';
+import { useSelector } from 'react-redux';
 
 const TaskList = () => {
-	let { tasks } = useTasks();
+	const tasks = useSelector(state => state.tasksReducer.tasks);
 
 	return (
 		<>
-			{tasks.tasks.map(task => <Task task={task} key={task.id} />)}
+			{tasks.map(task => <Task task={task} key={task.id} />)}
 		</>
 	);
 }

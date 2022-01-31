@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './redux';
 import App from './App';
-import { TaskContextProvider } from './context/TaskContext';
 import './index.scss';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<TaskContextProvider>
-			<App />
-		</TaskContextProvider>
+		<Provider store={store}>
+			<PersistGate persistor={persistor}>
+				<App />
+			</PersistGate>
+		</Provider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );
