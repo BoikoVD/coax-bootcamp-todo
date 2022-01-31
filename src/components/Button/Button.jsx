@@ -1,20 +1,15 @@
 import React from 'react';
-import cl from './Button.module.scss';
 import cn from 'classnames';
+import cl from './Button.module.scss';
 
-class Button extends React.Component {
+const Button = ({ className, children, ...otherProps }) => {
+	const classes = cn(cl.btn, className);
 
-	render() {
-		const { className, children, ...props } = this.props;
-
-		const classes = cn(cl.btn, className);
-
-		return (
-			<button className={classes} {...props}>
-				{children}
-			</button>
-		);
-	}
+	return (
+		<button className={classes} {...otherProps}>
+			{children}
+		</button>
+	);
 }
 
 export default Button;

@@ -1,25 +1,20 @@
 import React from 'react';
-import cl from './ListHeader.module.scss';
 import { format, startOfWeek, endOfWeek } from 'date-fns';
+import cl from './ListHeader.module.scss';
 
-class ListHeader extends React.Component {
+const ListHeader = () => {
+	const currentDate = new Date();
 
-	state = {
-		currentDate: new Date()
-	}
+	const startOfCurrentWeek = format(startOfWeek(currentDate), 'dd');
+	const endOfCurrentWeek = format(endOfWeek(currentDate), 'dd');
+	const month = format(currentDate, 'MMM');
+	const year = format(currentDate, 'yyyy');
 
-	render() {
-		const startOfCurrentWeek = format(startOfWeek(this.state.currentDate), 'dd');
-		const endOfCurrentWeek = format(endOfWeek(this.state.currentDate), 'dd');
-		const month = format(this.state.currentDate, 'MMM');
-		const year = format(this.state.currentDate, 'yyyy');
-
-		return (
-			<div className={cl.listHeader}>
-				{month + ' ' + startOfCurrentWeek + ' - ' + endOfCurrentWeek + ', ' + year}
-			</div>
-		);
-	}
+	return (
+		<div className={cl.listHeader}>
+			{month + ' ' + startOfCurrentWeek + ' - ' + endOfCurrentWeek + ', ' + year}
+		</div>
+	);
 }
 
 export default ListHeader;
