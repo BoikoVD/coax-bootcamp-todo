@@ -1,8 +1,8 @@
 import React from 'react';
-import cl from './App.module.scss';
 import AddTaskForm from './components/AddTaskForm/AddTaskForm';
 import ListHeader from './components/ListHeader/ListHeader';
 import TaskList from './components/TaskList/TaskList';
+import cl from './App.module.scss';
 
 const App = () => {
 

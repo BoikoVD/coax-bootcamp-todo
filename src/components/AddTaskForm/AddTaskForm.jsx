@@ -1,14 +1,14 @@
 import React from 'react';
-import cl from './AddTaskForm.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
-import { addTaskAC, useTasks } from '../../context/TaskContext';
+import { setTasksAC, useTasks } from '../../context/TaskContext';
+import cl from './AddTaskForm.module.scss';
 
 const AddTaskForm = () => {
 	let [value, setValue] = React.useState('');
 	let [hasError, setHasError] = React.useState(false);
-	let { dispatch } = useTasks();
+	let { tasks, tasksDispatch } = useTasks();
 
 	const createTask = (e) => {
 		e.preventDefault();
@@ -16,14 +16,19 @@ const AddTaskForm = () => {
 			setHasError(true);
 			return;
 		}
+
 		let newTask = {
 			id: uuidv4(),
 			text: value,
 			status: 'empty'
 		}
-		dispatch(addTaskAC(newTask));
-		console.log(`Task "${value}" added`);
+
+		const newTasks = [...tasks.tasks, newTask]
+		tasksDispatch(setTasksAC(newTasks));
+		localStorage.setItem('tasks', JSON.stringify(newTasks));
 		setValue('');
+
+		console.log(`Task "${value}" added`);
 	}
 
 	const changeValue = (e) => {

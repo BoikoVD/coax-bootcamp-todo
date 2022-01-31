@@ -1,11 +1,8 @@
 import React from 'react';
-import cl from './Button.module.scss';
 import cn from 'classnames';
+import cl from './Button.module.scss';
 
-const Button = (props) => {
-
-	const { className, children, ...otherProps } = props;
-
+const Button = ({ className, children, ...otherProps }) => {
 	const classes = cn(cl.btn, className);
 
 	return (

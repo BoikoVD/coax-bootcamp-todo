@@ -1,9 +1,9 @@
 import React from 'react';
-import cl from './ListHeader.module.scss';
 import { format, startOfWeek, endOfWeek } from 'date-fns';
+import cl from './ListHeader.module.scss';
 
 const ListHeader = () => {
-	let [currentDate, setCurrentDate] = React.useState(new Date());
+	const currentDate = new Date();
 
 	const startOfCurrentWeek = format(startOfWeek(currentDate), 'dd');
 	const endOfCurrentWeek = format(endOfWeek(currentDate), 'dd');

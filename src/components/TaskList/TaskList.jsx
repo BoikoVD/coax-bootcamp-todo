@@ -1,24 +1,13 @@
 import React from 'react';
 import Task from '../Task/Task';
-import { setTasksAC, useTasks } from '../../context/TaskContext';
+import { useTasks } from '../../context/TaskContext';
 
 const TaskList = () => {
-	let { state, dispatch } = useTasks();
-
-	React.useEffect(() => {
-		const localTasks = JSON.parse(localStorage.getItem('tasks'));
-		if (localTasks) {
-			dispatch(setTasksAC(localTasks));
-		}
-	}, []);
-
-	React.useEffect(() => {
-		localStorage.setItem('tasks', JSON.stringify(state.tasks));
-	}, [state.tasks]);
+	let { tasks } = useTasks();
 
 	return (
 		<>
-			{state.tasks.map(task => <Task task={task} key={task.id} />)}
+			{tasks.tasks.map(task => <Task task={task} key={task.id} />)}
 		</>
 	);
 }

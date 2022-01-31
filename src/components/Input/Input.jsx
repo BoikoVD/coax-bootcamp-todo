@@ -1,11 +1,8 @@
 import React from 'react';
-import cl from './Input.module.scss';
 import cn from 'classnames';
+import cl from './Input.module.scss';
 
-const Input = (props) => {
-
-	const { className, ...otherProps } = props;
-
+const Input = ({ className, ...otherProps }) => {
 	const classes = cn(cl.input, className);
 
 	return (
